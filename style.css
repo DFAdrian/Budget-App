@@ -1,0 +1,262 @@
+:root {
+    --letters: #0007;
+    --primary-color: #76c7c0;
+    --secondary-color: #ff6347;
+    --bg-color: #f0f4f8;
+    --border-radius: 0.4em;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: var(--letters);
+  }
+  
+  body {
+    min-height: 90vh;
+    background: linear-gradient(135deg, #eceff1 25%, #ffffff 100%);
+  }
+  
+  .main {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .app {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 50px auto;
+    width: 80%;
+    max-width: 800px;
+    gap: 1.5em;
+    padding: 2em;
+    background-color: var(--bg-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+  }
+  
+  .btn {
+    border: none;
+    cursor: pointer;
+    border-radius: var(--border-radius);
+    transition: box-shadow 0.5s ease-out, transform 0.2s ease-in-out;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5em 1em;
+    font-size: 1em;
+    font-weight: bold;
+  }
+  
+  .btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: var(--secondary-color);
+  }
+  
+  .btn, .app-display {
+    box-shadow: var(--box-shadow);
+  }
+  
+  .app-display {
+    padding: 1em;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .app-display h2 {
+    margin-bottom: 0.5em;
+    color: var(--primary-color);
+  }
+  
+  .app-display p {
+    margin: 0.5em 0;
+    font-size: 1.1em;
+  }
+  
+  progress {
+    width: 100%;
+    height: 20px;
+    border-radius: var(--border-radius);
+    background-color: #f0f4f8; 
+  }
+  
+  progress[value]::-webkit-progress-value {
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius);
+  }
+  
+  progress[value]::-webkit-progress-bar {
+    background-color: #65666899;
+    border-radius: var(--border-radius);
+  }
+  
+  /* Estilos para el formulario */
+  .form-container {
+    width: 100%;
+    background-color: white;
+    padding: 1em;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 1em;
+  }
+  
+  .form-container h2 {
+    margin-bottom: 1em;
+    color: var(--primary-color);
+    text-align: center;
+  }
+  
+  .form-container label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+    color: var(--primary-color);
+  }
+  
+  .form-container input[type="number"],
+  .form-container input[type="text"] {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+  }
+  
+  .form-container button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.5em 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-bottom: .5rem;
+  }
+  
+  .form-container button:hover {
+    background-color: var(--secondary-color);
+  }
+
+  ul {
+    width: 90%;
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-color);
+    width: 100%;
+    margin: 0.9em 0;
+    padding: 0.5em;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+  }
+
+  
+  .expense-amount {
+    font-weight: bold;
+  }
+
+  .expense-description{
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+  }
+  
+  .delete-expense {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 0.5em;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+  }
+  
+  .delete-expense:hover {
+    background-color: var(--primary-color);
+  }
+  
+  @media (max-width: 800px) {
+    .app {
+      width: 90%;
+    }
+  
+    .btn {
+      font-size: 0.9em;
+    }
+  
+    .app-display p {
+      font-size: 1em;
+    }
+  
+    .form-container {
+      padding: 0.5em;
+    }
+  
+    .form-container h2 {
+      font-size: 1.2em;
+    }
+  
+    .form-container input[type="number"],
+    .form-container input[type="text"] {
+      padding: 0.4em;
+    }
+  
+    .form-container button {
+      padding: 0.4em;
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .app {
+      width: 100%;
+      grid-template-columns: 1fr;
+    }
+  
+    .btn {
+      width: 100%;
+      margin-bottom: 0.5em;
+    }
+  
+    .app-display {
+      grid-column-end: 1;
+    }
+  
+    .form-container {
+      padding: 0.5em;
+    }
+  
+    .form-container h2 {
+      font-size: 1em;
+    }
+  
+    .form-container input[type="number"],
+    .form-container input[type="text"] {
+      padding: 0.3em;
+      font-size: 0.9em;
+    }
+  
+    .form-container button {
+      padding: 0.3em;
+      font-size: 0.9em;
+    }
+  }
+  
