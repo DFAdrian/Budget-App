@@ -20,12 +20,13 @@
   }
   
   .main {
-    margin-top: 1rem;
+    margin-top: .5rem;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
   }
+  
   
   .app {
     display: grid;
@@ -33,7 +34,7 @@
     grid-template-rows: 50px auto;
     width: 80%;
     max-width: 800px;
-    gap: 1.5em;
+    gap: 1em;
     padding: 2em;
     background-color: var(--bg-color);
     border-radius: var(--border-radius);
@@ -223,6 +224,8 @@
     .form-container button {
       padding: 0.4em;
     }
+
+
   }
   
   @media (max-width: 500px) {
@@ -258,5 +261,6 @@
       padding: 0.3em;
       font-size: 0.9em;
     }
+
   }
   

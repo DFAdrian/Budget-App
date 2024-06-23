@@ -2,6 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const viewApp = new BudgetView();
   viewApp.formOverview();
   viewApp.btnsFunctions();
+  localStorage.getItem("budget") &&
+    viewApp.budgetApp.addBudget(parseInt(localStorage.getItem("budget")));
+  localStorage.getItem("expenses") &&
+    viewApp.budgetApp.loadExpenses(
+      JSON.parse(localStorage.getItem("expenses"))
+    );
 });
 
 //////logic of the budget app start/////
@@ -23,6 +29,9 @@ class BudgetApp {
   addBudget(amount) {
     this.budget += amount;
     this.balance += this.budget;
+    let storagedBudget = parseInt(localStorage.getItem("budget"));
+    !localStorage.getItem("budget") &&
+      localStorage.setItem("budget", this.budget);
   }
 
   addExpense(amount, description) {
@@ -30,11 +39,16 @@ class BudgetApp {
     if (this.balance > amount) {
       this.balance -= amount;
       this.expenses.push(newExpense);
+      this.updateLocalStorage();
     } else {
       if (this.balance < amount) {
         alert(`Insuficient founds`);
       }
     }
+  }
+
+  updateLocalStorage() {
+    localStorage.setItem("expenses", JSON.stringify(this.expenses));
   }
 
   updateExpenses() {
@@ -48,6 +62,14 @@ class BudgetApp {
   removeExpense(index) {
     this.balance += this.expenses[index].amount;
     this.expenses.splice(index, 1);
+    this.updateLocalStorage();
+  }
+
+  loadExpenses(expenses) {
+    this.expenses = expenses;
+    this.expenses.forEach((expense) => {
+      this.balance -= expense.amount;
+    });
   }
 }
 
@@ -116,26 +138,29 @@ class BudgetView {
     const descriptionInput = document.createElement("input");
     const submitButton = document.createElement("button");
     const submitBudget = document.createElement("button");
+    const resetBtn = document.createElement("button");
     // atributes and content
     formContainer.className = "form-container";
     formTitle.textContent = "Add Budget and Expenses";
-    form.setAttribute("id", "budget-form");
+    form.id = "budget-form";
 
     budgetLabel.setAttribute("for", "budget");
     budgetLabel.textContent = "Budget:";
     budgetInput.setAttribute("type", "number");
-    budgetInput.setAttribute("id", "budget");
+    budgetInput.id = "budget";
     budgetInput.setAttribute("name", "budget");
     budgetInput.setAttribute("placeholder", "Enter your budget");
     budgetInput.setAttribute("required", true);
     submitBudget.setAttribute("type", "button");
-    submitBudget.setAttribute("id", "addBudget");
+    submitBudget.id = "addBudget";
     submitBudget.textContent = "Add Budget";
+    resetBtn.textContent = "Reset";
+    resetBtn.id = "reset";
 
     amountLabel.setAttribute("for", "amount");
     amountLabel.textContent = "Expense Amount:";
     amountInput.setAttribute("type", "number");
-    amountInput.setAttribute("id", "amount");
+    amountInput.id = "amount";
     amountInput.setAttribute("name", "amount");
     amountInput.setAttribute("placeholder", "Enter amount");
     amountInput.setAttribute("required", true);
@@ -143,14 +168,15 @@ class BudgetView {
     descriptionLabel.setAttribute("for", "description");
     descriptionLabel.textContent = "Expense Description:";
     descriptionInput.setAttribute("type", "text");
-    descriptionInput.setAttribute("id", "description");
+    descriptionInput.id = "description";
     descriptionInput.setAttribute("name", "description");
     descriptionInput.setAttribute("placeholder", "Enter description");
     descriptionInput.setAttribute("required", true);
 
     submitButton.setAttribute("type", "button");
-    submitButton.setAttribute("id", "addBtn");
+    submitButton.id = "addBtn";
     submitButton.textContent = "Add Expense";
+
     // Append
     form.append(
       budgetLabel,
@@ -162,7 +188,7 @@ class BudgetView {
       descriptionInput,
       submitButton
     );
-    formContainer.append(formTitle, form);
+    formContainer.append(formTitle, form, resetBtn);
     fragment.appendChild(formContainer);
     this.displayContainer.appendChild(fragment);
     this.formActions();
@@ -226,6 +252,11 @@ class BudgetView {
       } else {
         alert("Fill the inputs for amount and description");
       }
+    });
+
+    document.getElementById("reset").addEventListener("click", () => {
+      localStorage.clear();
+      location.reload();
     });
   }
 }
